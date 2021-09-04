@@ -1,0 +1,209 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2513
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica;\f1\fswiss\fcharset0 Helvetica-Bold;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\margl1440\margr1440\vieww15580\viewh12960\viewkind0
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 1) Crea un ciclo que, a partir de una variable entera `n = "1"`, le agregue ceros hasta llegar a un g\'fagol.\
+\
+2) Usa tu condici\'f3n anterior para ver si lo lograste\
+\
+\
+#while\
+n = "1"\
+while n < '1' + '0'*100:\
+    n += '0'\
+\
+if n == '1' + '0'*100:\
+    print("Exito")\
+else:\
+    print("Fracaso")\
+\
+n = "1"\
+\
+while n != "1" + "0"*100:\
+    n += '0'\
+    \
+\
+\
+# for\
+n = "1"\
+for i in range(100):\
+    n += '0'\
+    \
+\
+if n == "1" + "0"*100:\
+    print("\'c9xito")\
+else:\
+    print("Fracaso")\
+\
+\
+\
+\
+**Ejercicio**: Crea una funci\'f3n que reciba una lista e imprima todos los elementos de la lista.\
+\
+\
+**Ejercicio**: \
+1. Crea una lista con los nombres de tus compa\'f1eros.\
+2. Crea una funci\'f3n que, dada una lista de nombres, imprima por cada una de las iniciales cu\'e1ntas personas comparten esa inicial.\
+\
+#Hacer un programa en el que regrese una impresi\'f3n del n\'famero de nombres que tienen la misma inicial\
+lista = ['Franck',\
+        'Andrea',\
+        'Efrain',\
+        'Emmanuel',\
+        'Francisco',\
+        'Fernando',\
+        'Armando']\
+\
+def back_letters(lista):\
+    lista_ini = [ x[0] for x in lista]\
+    lista_uni = list(set(lista_ini))\
+    for k in lista_uni:\
+        n = 0\
+        for i in lista:\
+            if i[0] == k:\
+                n += 1\
+        print("Hay",n,"nombres",k)\
+\
+back_letters(lista)\
+\
+\
+**Ejercicio**: Encuentra las operaciones nacionales por mes de los 3 c\'f3digos IATA con mayor n\'famero de pasajeros internacionales.\
+#El default del merge es index\
+\
+\
+(\
+    pas\
+    .groupby('Codigo IATA')['Pasajeros internacionales']\
+    .sum()\
+    .sort_values(ascending=False)\
+    .head(3)\
+    .reset_index()\
+    .merge(ops)[['Anio mes', 'Codigo IATA', 'Operaciones nacionales']]\
+).head(5)\
+\
+\
+pas['anio'] = (pas['Anio mes']/100).astype(int)\
+ops['anio'] = (ops['Anio mes']/100).astype(int)\
+\
+**Ejercicio**: Encuentra las 5 IATAs con mayor n\'famero de pasajeros internacionales.\
+\
+\
+\
+(\
+     pas.\
+     groupby('Codigo IATA')['Pasajeros internacionales'].\
+     sum().\
+     reset_index().\
+     sort_values(by = 'Pasajeros internacionales',\
+                ascending = False)\
+    .reset_index(drop=True)\
+    .head(5)\
+)\
+\
+\
+\
+(pas.\
+ groupby('Codigo IATA')['Pasajeros internacionales'].\
+ sum().\
+ sort_values(ascending=False).\
+ head(5)\
+)\
+\
+\
+(\
+    pas\
+    .groupby('Codigo IATA')['Pasajeros internacionales']\
+    .sum()\
+    .sort_values(ascending = False)\
+    .head(5)\
+)\
+\
+\
+\
+(\
+    pas\
+    .groupby(['anio', 'Codigo IATA'])['Pasajeros nacionales']\
+    .sum()\
+    .sort_values(ascending = False)\
+    .reset_index()\
+    .groupby('anio')\
+    .head(3)\
+    .sort_values(by = ['anio', 'Pasajeros nacionales'], ascending = [True, False])\
+)\
+\
+\
+\
+\
+**Ejercicio**: Imprime las primeras 3 IATAs por a\'f1o.\
+\
+\
+pas['anio'] = (pas['Anio mes']/100).astype(int) #crea la variable anio\
+pas.groupby('anio')[['anio', 'Codigo IATA']].head(3)\
+\
+# Imprimir  3 iatas de pasajeros por a\'f1o\
+#pas['anio'] = (pas['Anio mes']/100).astype(int)\
+pas.groupby('anio')[['anio', 'Codigo IATA','Pasajeros internacionales' ]].head(3)\
+\
+\
+\
+**Ejercicio**: N\'famero de pasajeros internacionales por A\'f1o de los 3 c\'f3digos IATA que tuvieron el n\'famero m\'e1ximo de operaciones nacionales en ese a\'f1o.\
+\
+\
+(\
+    ops\
+    .groupby(['anio', 'Codigo IATA'])['Operaciones nacionales']\
+    .max()\
+    .sort_values(ascending=False)\
+    .groupby('anio')\
+    .head(3)\
+    .reset_index()[['anio', 'Codigo IATA']]\
+    .merge(pas)\
+    .groupby(['anio', 'Codigo IATA'])['Pasajeros internacionales']\
+    .sum()\
+    .reset_index()\
+)\
+\
+\
+
+\f1\b (\
+    pas.\
+    groupby('Codigo IATA')['Pasajeros internacionales'].\
+    sum().\
+    sort_values(ascending = False).\
+    head(3).\
+    reset_index().\
+    merge(ops)[['Anio mes', 'Operaciones nacionales', 'Codigo IATA']]\
+)
+\f0\b0 \
+\
+\
+\
+**Ejercicio**: Sin crear nuevas variables (usando solo m\'e9todos de pandas), grafica las operaciones totales por mes que hay en promedio en todos los a\'f1os.\
+\
+(\
+    ops\
+    .groupby('Codigo IATA')['Operaciones internacionales']\
+    .sum()\
+    .sort_values(ascending=False)\
+    .head(3)\
+    .reset_index()\
+    .merge(pas)\
+    .assign(\
+        pas_tot = lambda x: x['Pasajeros nacionales'] + x['Pasajeros internacionales'],\
+        mes = lambda x: 100 * (x['Anio mes']/100 - (x['Anio mes']/100).astype(int)),\
+        anio = lambda x: (x['Anio mes']/100).astype(int))\
+    .groupby(['Codigo IATA', 'mes', 'anio'])['pas_tot']\
+    .sum()\
+    .reset_index()\
+    .groupby(['Codigo IATA', 'mes'])['pas_tot']\
+    .mean()\
+    .reset_index()\
+    .pivot(index='mes',\
+          columns='Codigo IATA',\
+          values='pas_tot')\
+    .plot()\
+)\
+plt.show()}
